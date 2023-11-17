@@ -18,6 +18,7 @@ class MainFragment: Fragment(R.layout.fragment_main) {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, ModuleFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }

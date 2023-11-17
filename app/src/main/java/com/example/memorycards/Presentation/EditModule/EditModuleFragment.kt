@@ -4,31 +4,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.memorycards.Application.App
 import com.example.memorycards.Base.Factory
-import com.example.memorycards.Presentation.Resources.asItem
+import com.example.memorycards.items.asItem
 import com.example.memorycards.Presentation.adapters.EditModuleAdapter
 import com.example.memorycards.R
 import com.example.memorycards.databinding.FragmentEditModuleBinding
-import com.example.memorycards.databinding.FragmentModuleBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.drawable.ColorDrawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.memorycards.Presentation.Resources.SwipeToDeleteCallback
+import com.example.memorycards.Presentation.callbacks.SwipeToDeleteCallback
+import kotlinx.coroutines.flow.collect
 
 class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
 
@@ -52,43 +44,34 @@ class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
             onClickSave()
         }
 
-        updateItems()
+        lifecycleScope.launch {
+            viewModel.uistate().collect {
+                adapter.submitList(it)
+            }
+        }
 
         val swipeHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = adapter.currentList[viewHolder.adapterPosition]
                 viewModel.deleteWord(item.id)
-
-                updateItems()
-
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(binding.editcards)
     }
 
-    fun updateItems() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val items = viewModel.getWord().map { it.asItem() }
-
-            withContext(Dispatchers.Main) {
-                (binding.editcards.adapter as EditModuleAdapter).submitList(items)
-            }
-        }
-    }
 
     private fun onClickSave() {
         val name = binding.nameEditText.text?.toString().orEmpty()
         val translation = binding.translationEditText.text?.toString().orEmpty()
 
-        binding.nameInputLayout.error = "Слово не должно быть пустым".takeIf { name.isEmpty() }
-        binding.translationInputLayout.error = "Перевод не должен быть пустым".takeIf { translation.isEmpty() }
+        binding.nameInputLayout.error = getString(R.string.empty_word_error).takeIf { name.isEmpty() }
+        binding.translationInputLayout.error = getString(R.string.empty_translation_error).takeIf { translation.isEmpty() }
 
         if (name.isNotEmpty() && translation.isNotEmpty()) {
             viewModel.clickSave(name, translation)
-
-            updateItems()
-
+            binding.nameEditText.text = null
+            binding.translationEditText.text = null
         }
     }
 }

@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.memorycards.Application.App
 import com.example.memorycards.Base.Factory
 import com.example.memorycards.Presentation.EditModule.EditModuleFragment
-import com.example.memorycards.Presentation.Resources.asItem
+import com.example.memorycards.items.asItem
 import com.example.memorycards.Presentation.adapters.ModuleAdapter
 import com.example.memorycards.R
 import com.example.memorycards.databinding.FragmentModuleBinding

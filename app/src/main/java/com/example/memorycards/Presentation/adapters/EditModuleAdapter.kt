@@ -3,9 +3,10 @@ package com.example.memorycards.Presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.memorycards.Presentation.Resources.WordItem
+import com.example.memorycards.items.WordItem
 import com.example.memorycards.R
 import com.example.memorycards.databinding.EditcardsLayoutBinding
 
@@ -23,5 +24,15 @@ class EditModuleAdapter() : ListAdapter<WordItem, EditModuleAdapter.ViewHolder>(
         binding.editableName.text = item.name
         binding.editableTranslation.text = item.translation
     }
+    private class Diffutil() : DiffUtil.ItemCallback<WordItem>() {
+        override fun areItemsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
+
 

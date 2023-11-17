@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
-import com.example.memorycards.Presentation.Resources.WordItem
+import com.example.memorycards.items.WordItem
 import com.example.memorycards.R
 import com.example.memorycards.databinding.ModuleLayoutBinding
 
@@ -32,13 +32,14 @@ class ModuleAdapter(): ListAdapter<WordItem, ModuleAdapter.ViewHolder>(Diffutil(
         }
         binding.cardName.text = item.name
     }
-}
-class Diffutil() : DiffUtil.ItemCallback<WordItem>() {
-    override fun areItemsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
-        return oldItem.id == newItem.id
-    }
 
-    override fun areContentsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
-        return oldItem == newItem
+    private class Diffutil() : DiffUtil.ItemCallback<WordItem>() {
+        override fun areItemsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {
+            return oldItem == newItem
+        }
     }
 }

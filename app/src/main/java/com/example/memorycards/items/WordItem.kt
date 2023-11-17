@@ -1,4 +1,4 @@
-package com.example.memorycards.Presentation.Resources
+package com.example.memorycards.items
 
 import com.example.memorycards.Domain.Word
 

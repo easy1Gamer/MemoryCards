@@ -1,6 +1,8 @@
 package com.example.memorycards.Data
 
 import com.example.memorycards.Domain.Word
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -21,5 +23,10 @@ class WordsRepositoryImpl @Inject constructor(
 
     override fun delete(wordId: Int) {
         dao.delete(wordId)
+    }
+
+    override fun observeWords(): Flow<List<Word>> {
+        return dao.observeAll()
+            .map { listItems -> listItems.map { item -> item.asDomain() } }
     }
 }

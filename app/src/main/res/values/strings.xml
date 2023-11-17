@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MemoryCards</string>
+    <string name="app_name" translatable="false">MemoryCards</string>
+    <string name="empty_translation_error">Translation has to be not empty</string>
+    <string name="empty_word_error">Definition has to be not empty </string>
 </resources>

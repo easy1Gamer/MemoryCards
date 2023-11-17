@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MemoryCards</string>
+    <string name="empty_translation_error">Перевод не должен быть пустым</string>
+    <string name="empty_word_error">Слово не должно быть пустым</string>
+</resources>

@@ -1,4 +1,4 @@
-package com.example.memorycards.Presentation.Resources
+package com.example.memorycards.Presentation.callbacks
 
 import android.content.Context
 import android.graphics.Canvas

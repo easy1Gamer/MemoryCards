@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class WordRoom(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo("Слово") val name: String,
-    @ColumnInfo("Перевод") val translation: String
+    @ColumnInfo("Перевод") val translation: String,
+    @ColumnInfo("Picture") val pictureUrl: String
 )

@@ -7,11 +7,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="640dp"
         android:id="@+id/editcards"
         app:layout_constraintBottom_toTopOf="@+id/nameInputLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
+        android:background="@color/card_background"
         tools:listitem="@layout/editcards_layout"/>
 
     <Button

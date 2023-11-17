@@ -16,6 +16,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -54,6 +63,7 @@ dependencies {
 
     //room
     implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
     //threads
@@ -70,4 +80,7 @@ dependencies {
 
     //Supply
     implementation("androidx.appcompat:appcompat:1.6.1")
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
