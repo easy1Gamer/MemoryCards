@@ -3,9 +3,11 @@ package com.example.memorycards.Presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import com.bumptech.glide.Glide
 import com.example.memorycards.items.WordItem
 import com.example.memorycards.R
 import com.example.memorycards.databinding.ModuleLayoutBinding
@@ -30,6 +32,7 @@ class ModuleAdapter(): ListAdapter<WordItem, ModuleAdapter.ViewHolder>(Diffutil(
             }
 
         }
+        Glide.with(holder.itemView).load(item.pictureUrl).into(binding.cardImage)
         binding.cardName.text = item.name
     }
 

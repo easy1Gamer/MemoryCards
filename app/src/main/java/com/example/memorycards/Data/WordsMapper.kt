@@ -7,7 +7,8 @@ fun WordRoom.asDomain(): Word {
     return Word(
         id = id,
         name = name,
-        translation = translation
+        translation = translation,
+        pictureUrl = pictureUrl
     )
 }
 
@@ -15,6 +16,7 @@ fun Word.asRoom(): WordRoom {
     return WordRoom(
         id = id,
         name = name,
-        translation = translation
+        translation = translation,
+        pictureUrl = pictureUrl
     )
 }

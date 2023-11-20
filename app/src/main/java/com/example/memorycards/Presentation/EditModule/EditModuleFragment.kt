@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.memorycards.Presentation.callbacks.SwipeToDeleteCallback
+import com.example.memorycards.items.WordItem
 import kotlinx.coroutines.flow.collect
 
 class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
@@ -36,7 +37,7 @@ class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = EditModuleAdapter()
+        val adapter = EditModuleAdapter(viewModel::onClickFill)
         binding.editcards.adapter = adapter
         val layout = LinearLayoutManager(context)
         binding.editcards.layoutManager = layout
@@ -46,7 +47,8 @@ class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
 
         lifecycleScope.launch {
             viewModel.uistate().collect {
-                adapter.submitList(it)
+                adapter.submitList(it.items)
+                onClickFill(it.selectedItem)
             }
         }
 
@@ -64,15 +66,23 @@ class EditModuleFragment : Fragment(R.layout.fragment_edit_module) {
     private fun onClickSave() {
         val name = binding.nameEditText.text?.toString().orEmpty()
         val translation = binding.translationEditText.text?.toString().orEmpty()
+        val pictureUrl = binding.picUrl.text?.toString().orEmpty()
+
 
         binding.nameInputLayout.error = getString(R.string.empty_word_error).takeIf { name.isEmpty() }
         binding.translationInputLayout.error = getString(R.string.empty_translation_error).takeIf { translation.isEmpty() }
 
         if (name.isNotEmpty() && translation.isNotEmpty()) {
-            viewModel.clickSave(name, translation)
+            viewModel.clickSave(name, translation, pictureUrl, id)
             binding.nameEditText.text = null
             binding.translationEditText.text = null
+            binding.picUrl.text = null
         }
+    }
+    private fun onClickFill(wordItem: WordItem?) {
+        binding.nameEditText.setText(wordItem?.name)
+        binding.translationEditText.setText(wordItem?.translation)
+        binding.picUrl.setText(wordItem?.pictureUrl)
     }
 }
 

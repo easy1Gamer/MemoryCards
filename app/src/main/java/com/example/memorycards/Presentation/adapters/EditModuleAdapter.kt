@@ -10,7 +10,7 @@ import com.example.memorycards.items.WordItem
 import com.example.memorycards.R
 import com.example.memorycards.databinding.EditcardsLayoutBinding
 
-class EditModuleAdapter() : ListAdapter<WordItem, EditModuleAdapter.ViewHolder>(Diffutil()) {
+class EditModuleAdapter(private val onClickListener : (WordItem)-> Unit) : ListAdapter<WordItem, EditModuleAdapter.ViewHolder>(Diffutil()) {
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,6 +23,9 @@ class EditModuleAdapter() : ListAdapter<WordItem, EditModuleAdapter.ViewHolder>(
         val item = currentList[position]
         binding.editableName.text = item.name
         binding.editableTranslation.text = item.translation
+        binding.root.setOnClickListener{
+            onClickListener.invoke(item)
+        }
     }
     private class Diffutil() : DiffUtil.ItemCallback<WordItem>() {
         override fun areItemsTheSame(oldItem: WordItem, newItem: WordItem): Boolean {

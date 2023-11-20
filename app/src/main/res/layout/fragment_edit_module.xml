@@ -6,9 +6,10 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="640dp"
         android:id="@+id/editcards"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/nameInputLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
@@ -31,10 +32,7 @@
         android:layout_height="wrap_content"
         android:hint="Введите слово"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/translationInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/translationInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
@@ -48,15 +46,27 @@
         android:layout_height="wrap_content"
         android:hint="Введите перевод"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/imageInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/translationEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/imageInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/save">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/picUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите ссылку на изображение"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
